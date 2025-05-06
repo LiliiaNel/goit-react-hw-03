@@ -6,8 +6,8 @@ import { nanoid } from 'nanoid';
 
 
 let contactSchema = Yup.object().shape({
-        name: Yup.string().min(3, 'Minimum 3 characters!').max(50, 'Maximum 50 characters!').required('This is a required field'),
-        number: Yup.string('Only numbers and dashes allowed').min(3, 'Minimum 3 characters!').max(50, 'Maximum 50 characters!').required("This is a required field"),
+  name: Yup.string().min(3, 'Must contain at least 3 characters').max(50, 'Cannot exceed 50 characters').required('Please enter a name'),
+  number: Yup.string().matches(/^[\d-]+$/, 'Can contain only digits and dashes').min(3, 'Must be at least 3 digits').max(50, 'Cannot exceed 50 characters').required('Please enter a phone number'),
   });
 
 
@@ -31,10 +31,10 @@ const handleSubmit = (values, actions) => {
         <Form className={css.form}>
             <label htmlFor={`${ fieldId }-name`}>Name</label>
             <Field type="text" name="name" id={`${fieldId}-name`} />
-            <ErrorMessage name="name" className={css.error}  />
+            <ErrorMessage name="name" component='span' className={css.error}  />
               <label htmlFor={`${ fieldId }-number`}>Number</label>
-            <Field type="number" name="number" id={`${fieldId}-number`} />
-             <ErrorMessage name="number" className={css.error}  />
+            <Field type="text" name="number" id={`${fieldId}-number`} />
+             <ErrorMessage name="number" component='span' className={css.error}  />
               <button type="submit">Add contact</button>
         </Form>
     </Formik>
